@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.stu.wdb</groupId>
+    <artifactId>werpc</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>werpc framework</name>
+    <description>聚合服务</description>
+
+    <packaging>pom</packaging>
+    <properties>
+        <encoding>UTF-8</encoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <netty.version>4.1.42.Final</netty.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
+    </properties>
+
+    <modules>
+        <module>werpc-core</module>
+        <module>werpc-common</module>
+    </modules>
+
+</project>
