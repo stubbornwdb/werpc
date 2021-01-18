@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rpc-common</artifactId>
+    <artifactId>werpc-common</artifactId>
 
 
 </project>
