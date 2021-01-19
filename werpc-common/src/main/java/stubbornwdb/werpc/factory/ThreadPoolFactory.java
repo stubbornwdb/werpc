@@ -8,10 +8,9 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 /**
- * 创建 ThreadPool(线程池) 的工具类. 来自JavaGuide
- *
- * @author shuang.kou
- * @createTime 2020年05月26日 16:00:00
+ * 通过 threadNamePrefix 来区分不同线程池（我们可以把相同 threadNamePrefix 的线程池看作是为同一业务场景服务）。
+ * key: threadNamePrefix
+ * value: threadPool
  */
 public class ThreadPoolFactory {
     /**

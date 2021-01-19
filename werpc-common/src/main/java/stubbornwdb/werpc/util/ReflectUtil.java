@@ -12,9 +12,7 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/**
- * @author ziyang
- */
+
 public class ReflectUtil {
 
     public static String getStackTrace() {
