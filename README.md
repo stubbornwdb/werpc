@@ -28,6 +28,18 @@ RPC框架就是指封装好了参数编组、消息解组、底层网络通信�
 - **序列化与反序列化**  
 网络传输必然离不开序列化与反序列化，常见的序列化方式有：XML、JSON、Protobuf、Thrift、hessian、kryo、Avro等  
 
-## 运行
+## 使用
+**默认使用Nacos作为注册中心，所以使用是需确保Nacos已经启动，并且端口为8848**
 
+1.服务端    
+引入werpc-api、 werpc-api模块    
+初始化Server(可以使用SocketServer 或 NettyServer),设置Server初始化参数      
+实现公共接口，并且使用@WeRpcService注解实现类     
 
+2.客户端  
+引入werpc-api、 werpc-api模块   
+创建RPC客户端、动态代理器  
+动态代理对象调用服务  
+
+先启动服务端，在启动客户端
+具体见werpc-test-server、 werpc-test-client

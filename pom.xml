@@ -20,6 +20,9 @@
     <modules>
         <module>werpc-core</module>
         <module>werpc-common</module>
+        <module>werpc-api</module>
+        <module>werpc-test-server</module>
+        <module>werpc-test-client</module>
     </modules>
 
     <dependencies>

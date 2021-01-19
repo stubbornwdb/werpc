@@ -1,5 +1,7 @@
 package stubbornwdb.werpc.serializer;
 
+import java.io.IOException;
+
 /**
  * 通用的序列化反序列化接口
  */
@@ -9,6 +11,7 @@ public interface CommonSerializer {
     Integer JSON_SERIALIZER = 1;
     Integer HESSIAN_SERIALIZER = 2;
     Integer PROTOBUF_SERIALIZER = 3;
+    Integer SMARTBUF_SERIALIZER = 4;
 
     Integer DEFAULT_SERIALIZER = KRYO_SERIALIZER;
 
@@ -22,14 +25,16 @@ public interface CommonSerializer {
                 return new HessianSerializer();
             case 3:
                 return new ProtobufSerializer();
+            case 4:
+                return new SmartBufSerializer();
             default:
                 return null;
         }
     }
 
-    byte[] serialize(Object obj);
+    byte[] serialize(Object obj) throws IOException;
 
-    Object deserialize(byte[] bytes, Class<?> clazz);
+    Object deserialize(byte[] bytes, Class<?> clazz) throws IOException;
 
     int getCode();
 
