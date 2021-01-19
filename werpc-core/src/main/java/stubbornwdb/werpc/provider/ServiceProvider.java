@@ -1,34 +1,13 @@
 package stubbornwdb.werpc.provider;
 
-
-import stubbornwdb.werpc.entity.WeRpcServiceProperties;
-
 /**
- * store and provide service object.
+ * 保存和提供服务实例对象
  */
 public interface ServiceProvider {
 
-    /**
-     * @param service              service object
-     * @param serviceClass         the interface class implemented by the service instance object
-     * @param weRpcServiceProperties service related attributes
-     */
-    void addService(Object service, Class<?> serviceClass, WeRpcServiceProperties weRpcServiceProperties);
 
-    /**
-     * @param weRpcServiceProperties service related attributes
-     * @return service object
-     */
-    Object getService(WeRpcServiceProperties weRpcServiceProperties);
+    <T> void addServiceProvider(T service, String serviceName);
 
-    /**
-     * @param service              service object
-     * @param weRpcServiceProperties service related attributes
-     */
-    void publishService(Object service, WeRpcServiceProperties weRpcServiceProperties);
+    Object getServiceProvider(String serviceName);
 
-    /**
-     * @param service service object
-     */
-    void publishService(Object service);
 }

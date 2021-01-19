@@ -1,22 +1,19 @@
 package stubbornwdb.werpc.registry;
 
-
-import stubbornwdb.werpc.extension.SPI;
-
 import java.net.InetSocketAddress;
 
 /**
- * service registration
- *
+ * 服务注册接口
  */
-@SPI
 public interface ServiceRegistry {
+
     /**
-     * register service
+     * 将一个服务注册进注册表
      *
-     * @param rpcServiceName    rpc service name
-     * @param inetSocketAddress service address
+     * @param serviceName 服务名称
+     * @param inetSocketAddress 提供服务的地址
      */
-    void registerService(String rpcServiceName, InetSocketAddress inetSocketAddress);
+    void register(String serviceName, InetSocketAddress inetSocketAddress);
+
 
 }

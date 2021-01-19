@@ -1,76 +1,40 @@
 package stubbornwdb.werpc.provider;
 
-
-import lombok.extern.slf4j.Slf4j;
-import stubbornwdb.werpc.entity.WeRpcServiceProperties;
-import stubbornwdb.werpc.enums.WeRpcErrorMessageEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import stubbornwdb.werpc.enumeration.WeRpcError;
 import stubbornwdb.werpc.exception.WeRpcException;
-import stubbornwdb.werpc.extension.ExtensionLoader;
-import stubbornwdb.werpc.registry.ServiceRegistry;
-import stubbornwdb.werpc.remoting.transport.netty.server.NettyRpcServer;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Slf4j
+/**
+ * 默认的服务注册表，保存服务端本地服务
+ */
 public class ServiceProviderImpl implements ServiceProvider {
 
-    /**
-     * key: rpc service name(interface name + version + group)
-     * value: service object
-     */
-    private final Map<String, Object> serviceMap;
-    private final Set<String> registeredService;
-    private final ServiceRegistry serviceRegistry;
+    private static final Logger logger = LoggerFactory.getLogger(ServiceProviderImpl.class);
 
-
-    public ServiceProviderImpl() {
-        serviceMap = new ConcurrentHashMap<>();
-        registeredService = ConcurrentHashMap.newKeySet();
-        serviceRegistry = ExtensionLoader.getExtensionLoader(ServiceRegistry.class).getExtension("zk");
-    }
+    private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+    private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
     @Override
-    public void addService(Object service, Class<?> serviceClass, WeRpcServiceProperties weRpcServiceProperties) {
-        String rpcServiceName = weRpcServiceProperties.toRpcServiceName();
-        if (registeredService.contains(rpcServiceName)) {
+    public <T> void addServiceProvider(T service, String serviceName) {
+        if (registeredService.contains(serviceName)) {
             return;
         }
-        registeredService.add(rpcServiceName);
-        serviceMap.put(rpcServiceName, service);
-        log.info("Add service: {} and interfaces:{}", rpcServiceName, service.getClass().getInterfaces());
+        registeredService.add(serviceName);
+        serviceMap.put(serviceName, service);
+        logger.info("向接口: {} 注册服务: {}", service.getClass().getInterfaces(), serviceName);
     }
 
     @Override
-    public Object getService(WeRpcServiceProperties weRpcServiceProperties) {
-        Object service = serviceMap.get(weRpcServiceProperties.toRpcServiceName());
-        if (null == service) {
-            throw new WeRpcException(WeRpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);
+    public Object getServiceProvider(String serviceName) {
+        Object service = serviceMap.get(serviceName);
+        if (service == null) {
+            throw new WeRpcException(WeRpcError.SERVICE_NOT_FOUND);
         }
         return service;
     }
-
-    @Override
-    public void publishService(Object service) {
-        this.publishService(service, WeRpcServiceProperties.builder().group("").version("").build());
-    }
-
-    @Override
-    public void publishService(Object service, WeRpcServiceProperties weRpcServiceProperties) {
-        try {
-            String host = InetAddress.getLocalHost().getHostAddress();
-            Class<?> serviceRelatedInterface = service.getClass().getInterfaces()[0];
-            String serviceName = serviceRelatedInterface.getCanonicalName();
-            weRpcServiceProperties.setServiceName(serviceName);
-            this.addService(service, serviceRelatedInterface, weRpcServiceProperties);
-            serviceRegistry.registerService(weRpcServiceProperties.toRpcServiceName(), new InetSocketAddress(host, NettyRpcServer.PORT));
-        } catch (UnknownHostException e) {
-            log.error("occur exception when getHostAddress", e);
-        }
-    }
-
 }

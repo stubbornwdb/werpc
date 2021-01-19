@@ -1,21 +1,18 @@
 package stubbornwdb.werpc.registry;
 
-
-import stubbornwdb.werpc.extension.SPI;
-
 import java.net.InetSocketAddress;
 
 /**
- * service discovery
- *
+ * 服务发现接口
  */
-@SPI
 public interface ServiceDiscovery {
+
     /**
-     * lookup service by rpcServiceName
+     * 根据服务名称查找服务实体
      *
-     * @param rpcServiceName rpc service name
-     * @return service address
+     * @param serviceName 服务名称
+     * @return 服务实体
      */
-    InetSocketAddress lookupService(String rpcServiceName);
+    InetSocketAddress lookupService(String serviceName);
+
 }
