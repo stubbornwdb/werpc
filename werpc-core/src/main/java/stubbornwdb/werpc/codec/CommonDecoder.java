@@ -16,8 +16,6 @@ import java.util.List;
 
 /**
  * 通用的解码拦截器
- *
- * @author ziyang
  */
 public class CommonDecoder extends ReplayingDecoder {
 

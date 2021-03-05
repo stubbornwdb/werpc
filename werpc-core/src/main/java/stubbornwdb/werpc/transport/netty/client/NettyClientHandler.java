@@ -19,8 +19,6 @@ import java.net.InetSocketAddress;
 
 /**
  * Netty客户端侧处理器
- *
- * @author ziyang
  */
 public class NettyClientHandler extends SimpleChannelInboundHandler<WeRpcResponse> {
 

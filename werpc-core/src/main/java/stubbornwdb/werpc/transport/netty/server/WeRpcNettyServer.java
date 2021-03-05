@@ -21,8 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * NIO方式服务提供侧
- *
- * @author ziyang
  */
 public class WeRpcNettyServer extends AbstractWeRpcServer {
 

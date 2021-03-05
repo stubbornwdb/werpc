@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author ziyang
  * 使用ConcurrentHashMap装载客户端的异步调用请求
  */
 public class UnprocessedRequests {
