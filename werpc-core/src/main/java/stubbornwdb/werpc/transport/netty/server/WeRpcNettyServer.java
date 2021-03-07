@@ -50,6 +50,9 @@ public class WeRpcNettyServer extends AbstractWeRpcServer {
         scanServices();
     }
 
+    /**
+     * 启动
+     */
     @Override
     public void start() {
         ShutdownHook.getShutdownHook().addClearAllHook();

@@ -32,6 +32,13 @@ public class WeRpcClientProxy implements InvocationHandler {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, this);
     }
 
+    /**
+     * 动态代理对象调用方法的时候将执行invoke方法
+     * @param proxy
+     * @param method
+     * @param args
+     * @return
+     */
     @SuppressWarnings("unchecked")
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {

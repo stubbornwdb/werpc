@@ -20,17 +20,29 @@ public class CommonEncoder extends MessageToByteEncoder {
         this.serializer = serializer;
     }
 
+    /**
+     * 按照自定义协议的格式进行编码
+     * @param ctx
+     * @param msg
+     * @param out
+     * @throws Exception
+     */
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+        //魔数
         out.writeInt(MAGIC_NUMBER);
+        //消息类型
         if (msg instanceof WeRpcRequest) {
             out.writeInt(PackageType.REQUEST_PACK.getCode());
         } else {
             out.writeInt(PackageType.RESPONSE_PACK.getCode());
         }
+        //序列化类型
         out.writeInt(serializer.getCode());
         byte[] bytes = serializer.serialize(msg);
+        //序列化后的消息长度
         out.writeInt(bytes.length);
+        //序列化后的消息体
         out.writeBytes(bytes);
     }
 
